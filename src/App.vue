@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-toolbar app>
+    <!--v-toolbar app>
       <v-toolbar-title class="headline text-uppercase">
         <span>Vuetify</span>
         <span class="font-weight-light">MATERIAL DESIGN</span>
@@ -9,7 +9,7 @@
       <v-btn flat exact :to="{name: 'home'}">home</v-btn>
       <v-btn flat exact :to="{name: 'login'}">login</v-btn>
       <v-btn flat exact :to="{name: 'profile'}">profile</v-btn>
-    </v-toolbar>
+    </v-toolbar-->
 
     <v-content>
       <router-view/>

@@ -22,6 +22,11 @@ export default new Router({
       component: () => import(/* webpackChunkName: "about" */ './views/login')
     },
     {
+      path: '/callback',
+      name: 'callback',
+      component: () => import(/* webpackChunkName: "about" */ './views/callback')
+    },
+    {
       path: '/profile',
       name: 'profile',
       component: () => import(/* webpackChunkName: "about" */ './views/profile'),
