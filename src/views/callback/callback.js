@@ -1,45 +1,31 @@
-import { mapActions, mapGetters } from 'vuex'
 import config from '../../../public/config'
-const axios = require('axios');
+import main from '../../bus'
+import axios from 'axios'
 export default {
   name: 'callback',
-  components: {},
-  props: [],
   data () {
     return {
-        name: this.username
+      username: null,
+      verified: false
     }
   },
-  computed: {
-    ...mapGetters([
-      'user'
-    ])
-  },
   mounted () {
-    console.log(window.location.href)
-    var url_string = window.location.href
-    var url = new URL(url_string)
-    var username = url.searchParams.get("username");
-    var signedhash = url.searchParams.get("signedhash");
-    var hash = url.searchParams.get("hash");
-    console.log('user: '+username+' signedhash: '+signedhash+' hash: '+hash);
-    axios.post(`${config.botlogin}/api/verify`, {
-        username: username,
-        signedhash: signedhash,
-        hash: hash
-      })
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  },
-  methods: {
-    /*...mapActions([
-      'login'
-    ])*/
-    
+    var url = new URL(window.location.href)
+    // Get all query params
+    var username = url.searchParams.get('username')
+    var signedhash = url.searchParams.get('signedhash')
+    // Get original hash
+    var hash = window.localStorage.getItem('hash')
+    this.username = username
+    // Post to API to verify
+    axios.post(`${config.botBackend}/api/verify`, {
+      username: username,
+      signedhash: signedhash,
+      hash: hash
+    }).then((response) => {
+      this.verified = true
+      console.log(response)
+      main.$emit('gotUser', username)
+    })
   }
-  
 }

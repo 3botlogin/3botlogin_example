@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from './views/home'
+import login from './views/login'
 
 Vue.use(Router)
 
@@ -10,16 +10,8 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: Home,
-      meta:{
-        requiresAuth: true
-      }
-    },
-    {
-      path: '/login',
       name: 'login',
-      component: () => import(/* webpackChunkName: "about" */ './views/login')
+      component: login
     },
     {
       path: '/callback',
@@ -27,12 +19,9 @@ export default new Router({
       component: () => import(/* webpackChunkName: "about" */ './views/callback')
     },
     {
-      path: '/profile',
+      path: '/profile/:user',
       name: 'profile',
-      component: () => import(/* webpackChunkName: "about" */ './views/profile'),
-      meta:{
-        requiresAuth: true
-      }
+      component: () => import(/* webpackChunkName: "about" */ './views/profile')
     }
   ]
 })

@@ -1,4 +1,5 @@
 export default({
-    botlogin: "https://3botlog.in",
-    redirect_url: window.location.host
+  botForntEnd: 'http://localhost:8081',
+  botBackend: 'http://localhost:5000',
+  redirect_url: `${window.location.protocol}//${window.location.host}`
 })

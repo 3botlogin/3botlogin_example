@@ -1,2 +1,1 @@
-import './firebase'
 import './vuetify'

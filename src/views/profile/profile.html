@@ -1,6 +1,16 @@
-
 <section class="profile">
-  <h1>profile Component</h1>
-  {{user}}
+  <v-card style="min-width: 300px;">
+    <v-toolbar class="primary">
+      <h1 class="headline white--text text-xs-center fw">
+        You are logged in
+      </h1>
+    </v-toolbar>
+    <v-form>
+      <v-card-text>
+        <v-layout column>
+          <p>Hi {{this.$route.params.user}}</p>
+        </v-layout>
+      </v-card-text>
+    </v-form>
+  </v-card>
 </section>
-

@@ -1,5 +1,3 @@
-import { mapGetters } from "vuex";
-
 export default {
   name: 'profile',
   components: {},
@@ -10,9 +8,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters([
-      'user'
-    ])
+
   },
   mounted () {
 

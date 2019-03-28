@@ -1,24 +1,32 @@
 <template>
   <v-app>
-    <!--v-toolbar app>
-      <v-toolbar-title class="headline text-uppercase">
-        <span>Vuetify</span>
-        <span class="font-weight-light">MATERIAL DESIGN</span>
-      </v-toolbar-title>
-      <v-spacer></v-spacer>
-      <v-btn flat exact :to="{name: 'home'}">home</v-btn>
-      <v-btn flat exact :to="{name: 'login'}">login</v-btn>
-      <v-btn flat exact :to="{name: 'profile'}">profile</v-btn>
-    </v-toolbar-->
-
-    <v-content>
-      <router-view/>
+    <v-content fill-height>
+      <v-layout justify-center fill-height>
+        <v-layout column align-center justify-center>
+          <router-view/>
+        </v-layout>
+      </v-layout>
     </v-content>
   </v-app>
 </template>
 
 <script>
+import main from "./bus.js";
 export default {
-  name: "App"
+  name: "App",
+  mounted() {
+    main.$on("gotUser", user => {
+      console.log(user);
+      this.$router.push({ name: "profile", params: { user: user } });
+    });
+  }
 };
 </script>
+<style>
+#app {
+  background: url("./assets/background.jpg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+</style>
