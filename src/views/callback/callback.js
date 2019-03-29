@@ -15,7 +15,7 @@ export default {
     var username = url.searchParams.get('username')
     var signedhash = url.searchParams.get('signedhash')
     // Get original hash
-    var hash = window.localStorage.getItem('hash')
+    var hash = window.localStorage.getItem('state')
     this.username = username
     // Post to API to verify
     axios.post(`${config.botBackend}/api/verify`, {
