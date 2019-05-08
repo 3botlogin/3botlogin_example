@@ -14,12 +14,6 @@
 import main from "./bus.js";
 export default {
   name: "App",
-  mounted() {
-    main.$on("gotUser", user => {
-      console.log(user);
-      this.$router.push({ name: "profile", params: { user: user } });
-    });
-  }
 };
 </script>
 <style>
