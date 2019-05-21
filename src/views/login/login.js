@@ -15,6 +15,13 @@ export default {
       nonce: null
     }
   },
+  mounted () {
+    if (this.$route.query.doublename) {
+      setTimeout(() => {
+        this.autoLogin()
+      }, 300)
+    }
+  },
   methods: {
     login () {
       var state = randomstring.generate()
@@ -29,6 +36,15 @@ export default {
 
       window.localStorage.setItem('state', state)
       window.location.href = `${config.botForntEnd}?state=${state}&appid=${appid}&scope=${scope}&publickey=${encodeURIComponent(CryptoService.getEdPkInCurve(keys.publicKey))}&redirecturl=${encodeURIComponent(`${config.redirect_url}/callback`)}`
+    },
+    async autoLogin () {
+      var state = randomstring.generate()
+      var keys = await CryptoService.generateKeys(config.seedPhrase)
+      var appid = 'ExampleAppId'
+      var scope = 'user:email'
+
+      window.localStorage.setItem('state', state)
+      window.location.href = `${config.botForntEnd}?state=${state}&appid=${appid}&scope=${scope}&publickey=${encodeURIComponent(CryptoService.getEdPkInCurve(keys.publicKey))}&doublename=${this.$route.query.doublename}&logintoken=${this.$route.query.logintoken}&redirecturl=${encodeURIComponent(`${config.redirect_url}/callback`)}`
     }
     // generateKey () {
     //   CryptoService.generateKeys().then(keys => {
