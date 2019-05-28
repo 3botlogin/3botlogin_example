@@ -1,4 +1,4 @@
-export default({
+export default ({
   botForntEnd: 'https://login.staging.jimber.org/',
   botBackend: 'https://login.staging.jimber.org/',
   redirect_url: `${window.location.protocol}//${window.location.host}`,
