@@ -11,10 +11,9 @@
 </template>
 
 <script>
-import main from "./bus.js";
 export default {
-  name: "App",
-};
+  name: 'App'
+}
 </script>
 <style>
 #app {
