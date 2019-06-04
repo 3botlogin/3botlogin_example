@@ -23,10 +23,13 @@ export default {
     }
   },
   methods: {
-    login () {
+    async login () {
       var state = randomstring.generate()
       window.localStorage.setItem('state', state)
-      window.location.href = `${config.botForntEnd}?state=${state}&redirecturl=${config.redirect_url}/callback`
+      var keys = await CryptoService.generateKeys(config.seedPhrase)
+      var appid = 'ExampleAppId'
+
+      window.location.href = `${config.botForntEnd}?state=${state}&appid=${appid}&publickey=${encodeURIComponent(CryptoService.getEdPkInCurve(keys.publicKey))}&redirecturl=${config.redirect_url}/callback`
     },
     async loginWithScope () {
       var state = randomstring.generate()
@@ -35,7 +38,7 @@ export default {
       var scope = 'user:email'
 
       window.localStorage.setItem('state', state)
-      window.location.href = `${config.botForntEnd}?state=${state}&appid=${appid}&scope=${scope}&publickey=${encodeURIComponent(CryptoService.getEdPkInCurve(keys.publicKey))}&redirecturl=${encodeURIComponent(`${config.redirect_url}/callback`)}`
+      window.location.href = `${config.botForntEnd}?state=${state}&scope=${scope}&appid=${appid}&publickey=${encodeURIComponent(CryptoService.getEdPkInCurve(keys.publicKey))}&redirecturl=${config.redirect_url}/callback`
     },
     async autoLogin () {
       var state = randomstring.generate()
