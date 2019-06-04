@@ -1,4 +1,4 @@
-export default({
+export default ({
   botForntEnd: 'https://login.threefold.me',
   botBackend: 'https://login.threefold.me/',
   redirect_url: `${window.location.protocol}//${window.location.host}`,
