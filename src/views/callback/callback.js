@@ -1,5 +1,4 @@
 import config from '../../../public/config'
-import main from '../../bus'
 import cryptoService from '../../services/CryptoService'
 import threebotService from '../../services/threebotService'
 export default {

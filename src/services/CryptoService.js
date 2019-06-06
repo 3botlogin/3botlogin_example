@@ -1,5 +1,5 @@
 // import ed2curve from 'ed2curve'
-import { encodeBase64, decodeUTF8, decodeBase64, encodeUTF8 } from 'tweetnacl-util'
+import { encodeBase64, decodeBase64, encodeUTF8 } from 'tweetnacl-util'
 
 const sodium = require('libsodium-wrappers')
 const bip39 = require('bip39')
