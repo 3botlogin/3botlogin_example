@@ -5,8 +5,15 @@
         <v-btn large class="accent" @click="login">
           Click here to authenticate
         </v-btn>
+        <br />
         <v-btn large class="accent" @click="loginWithScope">
           Click here to authenticate & get the users emailaddress
+        </v-btn>
+        <v-btn large class="accent" @click="loginWithScopeKeys">
+          Click here to authenticate & get the derived keypair.
+        </v-btn>
+        <v-btn large class="accent" @click="loginWithScopeEmailAndKeys">
+          Click here to authenticate & get the users emailaddress and derived keypair.
         </v-btn>
       </v-layout>
     </v-flex>
