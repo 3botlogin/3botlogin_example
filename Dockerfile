@@ -1,3 +1,4 @@
 FROM nginx:latest
-COPY ./dist /var/www/html
+COPY ./dist /usr/share/nginx/html
+COPY example.conf /etc/nginx/conf.d/default.conf
 CMD ["nginx", "-g", "daemon off;"]
