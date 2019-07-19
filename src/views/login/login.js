@@ -15,20 +15,65 @@ export default {
       nonce: null
     }
   },
+  mounted () {
+    if (this.$route.query.doublename) {
+      setTimeout(() => {
+        this.autoLogin()
+      }, 300)
+    }
+  },
   methods: {
-    login () {
+    async login () {
       var state = randomstring.generate()
       window.localStorage.setItem('state', state)
-      window.location.href = `${config.botForntEnd}?state=${state}&redirecturl=${config.redirect_url}/callback`
+      var keys = await CryptoService.generateKeys(config.seedPhrase)
+      var appid = config.appId
+
+      window.location.href = `${config.botFrontEnd}?state=${state}&appid=${appid}&publickey=${encodeURIComponent(CryptoService.getEdPkInCurve(keys.publicKey))}&redirecturl=${encodeURIComponent(config.redirect_url)}`
     },
     async loginWithScope () {
       var state = randomstring.generate()
       var keys = await CryptoService.generateKeys(config.seedPhrase)
-      var appid = 'ExampleAppId'
+      var appid = config.appId
       var scope = 'user:email'
 
       window.localStorage.setItem('state', state)
-      window.location.href = `${config.botForntEnd}?state=${state}&appid=${appid}&scope=${scope}&publickey=${encodeURIComponent(CryptoService.getEdPkInCurve(keys.publicKey))}&redirecturl=${encodeURIComponent(`${config.redirect_url}/callback`)}`
+      this.redirect(state, scope, appid, keys.publicKey, config.redirect_url)
+    },
+    async loginWithScopeKeys () {
+      var state = randomstring.generate()
+      var keys = await CryptoService.generateKeys(config.seedPhrase)
+      var appid = config.appId
+      var scope = 'user:keys'
+      window.localStorage.setItem('state', state)
+      this.redirect(state, scope, appid, keys.publicKey, config.redirect_url)
+    },
+    async loginWithScopeEmailAndKeys () {
+      var state = randomstring.generate()
+      var keys = await CryptoService.generateKeys(config.seedPhrase)
+      var appid = config.appId
+      var scope = 'user:email,user:keys'
+
+      window.localStorage.setItem('state', state)
+      this.redirect(state, scope, appid, keys.publicKey, config.redirect_url)
+      // window.location.href = `${config.botFrontEnd}?state=${state}&scope=${scope}&appid=${appid}&publickey=${encodeURIComponent(CryptoService.getEdPkInCurve(keys.publicKey))}&redirecturl=${encodeURIComponent(config.redirect_url)}`
+    },
+    async autoLogin () {
+      console.log('AUTOLOGIN!')
+      var state = randomstring.generate()
+      var keys = await CryptoService.generateKeys(config.seedPhrase)
+      var appid = config.appId
+      var scope = 'user:email,user:keys'
+
+      window.localStorage.setItem('state', state)
+      console.log(config.redirect_url)
+      window.location.href = `${config.botFrontEnd}?state=${state}&appid=${appid}&scope=${scope}&publickey=${encodeURIComponent(CryptoService.getEdPkInCurve(keys.publicKey))}&doublename=${this.$route.query.doublename}&logintoken=${this.$route.query.logintoken}&redirecturl=${encodeURIComponent(`${config.redirect_url}`)}`
+    },
+    async redirect(state, scope, appid, publicKey, redirectUrl) {
+      
+      window.location.href = `${config.botFrontEnd}?state=${state}&scope=${scope}&appid=${appid}&publickey=${encodeURIComponent(CryptoService.getEdPkInCurve(publicKey))}&redirecturl=${encodeURIComponent(redirectUrl)}`
+    
+
     }
     // generateKey () {
     //   CryptoService.generateKeys().then(keys => {

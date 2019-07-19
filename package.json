@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
+    "serve-mathias": "vue-cli-service serve --port 8080",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
@@ -15,6 +16,7 @@
     "libsodium": "^0.7.4",
     "libsodium-wrappers": "^0.7.4",
     "randomstring": "^1.1.5",
+    "socket.io": "^2.2.0",
     "string-to-arraybuffer": "^1.0.2",
     "tweetnacl": "^1.0.1",
     "tweetnacl-util": "^0.15.0",

@@ -1,5 +1,5 @@
 // import ed2curve from 'ed2curve'
-import { encodeBase64, decodeUTF8, decodeBase64, encodeUTF8 } from 'tweetnacl-util'
+import { encodeBase64, decodeBase64, encodeUTF8 } from 'tweetnacl-util'
 
 const sodium = require('libsodium-wrappers')
 const bip39 = require('bip39')
@@ -9,7 +9,9 @@ export default ({
     return new Promise(async (resolve, reject) => {
       publicKey = decodeBase64(publicKey)
       signature = decodeBase64(signature)
-      resolve(sodium.crypto_sign_open(signature, publicKey))
+      var result = sodium.crypto_sign_open(signature, publicKey)
+      console.log(result)
+      resolve(result)
     })
   },
   decrypt (message, nonce, privateKey, pubkey) {
