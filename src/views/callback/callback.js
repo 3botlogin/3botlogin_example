@@ -20,7 +20,6 @@ export default {
       var user = response.data
       var hash = window.localStorage.getItem('state')
       this.verified = await cryptoService.validateSignature(hash, signedhash, user.publicKey)
-
       var profile = {
         name: username
       }
