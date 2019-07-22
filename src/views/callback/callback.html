@@ -7,9 +7,13 @@
         </v-toolbar>
         <v-form>
             <v-card-text>
-                <v-layout column align-center v-if="!verified">
+                <v-layout column align-center v-if="!verified && !error">
                     <v-progress-circular :size="100" :width="15" color="accent" indeterminate>
                     </v-progress-circular>
+                </v-layout>
+                <v-layout class="text-xs-center" align-center v-if="error">
+                    <v-icon left color="orange">info</v-icon>
+                    <span v-if="error">{{error}}</span>
                 </v-layout>
                 <v-layout column align-center v-if="verified">
                     <v-icon>check</v-icon>
