@@ -1,6 +1,6 @@
 export default({
-  botFrontEnd: 'http://192.168.2.50:8080',
-  botBackend: 'http://192.168.2.50:5000',
+  botFrontEnd: 'http://dev.jimber.org:8080',
+  botBackend: 'http://dev.jimber.org:5000',
   // botBackend: 'https://login.staging.jimber.org/',
   redirect_url: '/callback',
   appId: window.location.host,
