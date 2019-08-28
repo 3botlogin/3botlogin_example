@@ -1,5 +1,6 @@
 import config from '../../../public/config'
 import CryptoService from '../../services/CryptoService'
+import { timeout } from 'q';
 var randomstring = require('randomstring')
 export default {
   name: 'login',
@@ -35,7 +36,7 @@ export default {
       var state = randomstring.generate()
       var keys = await CryptoService.generateKeys(config.seedPhrase)
       var appid = config.appId
-      var scope = 'user:email'
+      var scope = JSON.stringify({ doubleName : true, email : false})
 
       window.localStorage.setItem('state', state)
       this.redirect(state, scope, appid, keys.publicKey, config.redirect_url)
@@ -44,7 +45,8 @@ export default {
       var state = randomstring.generate()
       var keys = await CryptoService.generateKeys(config.seedPhrase)
       var appid = config.appId
-      var scope = 'user:keys'
+      var scope = JSON.stringify({ doubleName : true, keys : false})
+
       window.localStorage.setItem('state', state)
       this.redirect(state, scope, appid, keys.publicKey, config.redirect_url)
     },
@@ -52,7 +54,7 @@ export default {
       var state = randomstring.generate()
       var keys = await CryptoService.generateKeys(config.seedPhrase)
       var appid = config.appId
-      var scope = 'user:email,user:keys'
+      var scope = JSON.stringify({ doubleName : true, email : false, keys : false})
 
       window.localStorage.setItem('state', state)
       this.redirect(state, scope, appid, keys.publicKey, config.redirect_url)
@@ -63,8 +65,7 @@ export default {
       var state = randomstring.generate()
       var keys = await CryptoService.generateKeys(config.seedPhrase)
       var appid = config.appId
-      var scope = 'user:email,user:keys'
-
+      var scope = JSON.stringify({ doubleName : true, email : false, keys : false})
       window.localStorage.setItem('state', state)
       console.log(config.redirect_url)
       window.location.href = `${config.botFrontEnd}?state=${state}&appid=${appid}&scope=${scope}&publickey=${encodeURIComponent(CryptoService.getEdPkInCurve(keys.publicKey))}&doublename=${this.$route.query.doublename}&logintoken=${this.$route.query.logintoken}&redirecturl=${encodeURIComponent(`${config.redirect_url}`)}`
