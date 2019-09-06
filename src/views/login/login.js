@@ -32,40 +32,21 @@ export default {
 
       window.location.href = `${config.botFrontEnd}?state=${state}&appid=${appid}&publickey=${encodeURIComponent(CryptoService.getEdPkInCurve(keys.publicKey))}&redirecturl=${encodeURIComponent(config.redirect_url)}`
     },
-    async loginWithScope () {
+    async loginWithCustomScope (scope) {
       var state = randomstring.generate()
       var keys = await CryptoService.generateKeys(config.seedPhrase)
       var appid = config.appId
-      var scope = JSON.stringify({ doubleName : true, email : false})
+      var scope = JSON.stringify(scope) // { doubleName : true, email : false}
 
       window.localStorage.setItem('state', state)
       this.redirect(state, scope, appid, keys.publicKey, config.redirect_url)
-    },
-    async loginWithScopeKeys () {
-      var state = randomstring.generate()
-      var keys = await CryptoService.generateKeys(config.seedPhrase)
-      var appid = config.appId
-      var scope = JSON.stringify({ doubleName : true, keys : false})
-
-      window.localStorage.setItem('state', state)
-      this.redirect(state, scope, appid, keys.publicKey, config.redirect_url)
-    },
-    async loginWithScopeEmailAndKeys () {
-      var state = randomstring.generate()
-      var keys = await CryptoService.generateKeys(config.seedPhrase)
-      var appid = config.appId
-      var scope = JSON.stringify({ doubleName : true, email : false, keys : false})
-
-      window.localStorage.setItem('state', state)
-      this.redirect(state, scope, appid, keys.publicKey, config.redirect_url)
-      // window.location.href = `${config.botFrontEnd}?state=${state}&scope=${scope}&appid=${appid}&publickey=${encodeURIComponent(CryptoService.getEdPkInCurve(keys.publicKey))}&redirecturl=${encodeURIComponent(config.redirect_url)}`
     },
     async autoLogin () {
       console.log('AUTOLOGIN!')
       var state = randomstring.generate()
       var keys = await CryptoService.generateKeys(config.seedPhrase)
       var appid = config.appId
-      var scope = JSON.stringify({ doubleName : true, email : false, keys : false})
+      var scope = JSON.stringify({ doubleName : true, email : false, derivedSeed : false})
       window.localStorage.setItem('state', state)
       console.log(config.redirect_url)
       window.location.href = `${config.botFrontEnd}?state=${state}&appid=${appid}&scope=${scope}&publickey=${encodeURIComponent(CryptoService.getEdPkInCurve(keys.publicKey))}&doublename=${this.$route.query.doublename}&logintoken=${this.$route.query.logintoken}&redirecturl=${encodeURIComponent(`${config.redirect_url}`)}`

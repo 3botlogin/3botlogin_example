@@ -6,14 +6,14 @@
           Click here to authenticate
         </v-btn>
         <br />
-        <v-btn large class="accent" @click="loginWithScope">
+        <v-btn large class="accent" @click="loginWithCustomScope({ doubleName : true, email : false})">
           Click here to authenticate & get the users emailaddress
         </v-btn>
-        <v-btn large class="accent" @click="loginWithScopeKeys">
-          Click here to authenticate & get the derived keypair.
+        <v-btn large class="accent" @click="loginWithCustomScope({ doubleName : true, derivedSeed : false})">
+          Click here to authenticate & get the derived seed.
         </v-btn>
-        <v-btn large class="accent" @click="loginWithScopeEmailAndKeys">
-          Click here to authenticate & get the users emailaddress and derived keypair.
+        <v-btn large class="accent" @click="loginWithCustomScope({ doubleName : true, email : false, derivedSeed : false})">
+          Click here to authenticate & get the users emailaddress and derived seed.
         </v-btn>
       </v-layout>
     </v-flex>
